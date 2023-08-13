@@ -1,0 +1,20 @@
+/* App.css */
+
+/* Style for the body of the page */
+body {
+    font-family: 'Open Sans', sans-serif; /* Use the "Open Sans" font for the entire app */
+    background-color: #701a1a; /* Light gray background */
+    font-weight: 600;
+  }
+  
+  /* Styling for the Home component */
+  .home-container {
+    justify-content: center;
+ /* Full viewport height */
+  }
+  
+  .home-title {
+    font-size: 36px;
+    margin-bottom: 20px;
+  }
+  

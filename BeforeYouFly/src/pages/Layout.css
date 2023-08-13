@@ -1,0 +1,30 @@
+
+nav {
+    display:flex;
+    flex-wrap: wrap;    
+    background-color:rgb(37, 32, 32) !important;
+    border-radius:20px;
+    padding:15px;
+    margin:20px;
+}
+nav div{
+    flex: 1 1 33%;
+    font-size:20px;
+    text-align:center;
+    margin:0px;
+    
+}
+.red{
+    color:grey;
+}
+nav div :hover{
+    color:red;
+    background-color: blue;
+    padding:15px;
+    padding-left:10px;
+    padding-right:10px;
+    margin:0px;
+    -webkit-transition: all .5s;
+    -moz-transition: all .5s;
+    transition: all .5s;
+}
