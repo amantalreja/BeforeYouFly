@@ -4,7 +4,6 @@
 .react-datepicker-wrapper {
   display: inline-block;
   position: relative;
-  padding: 4px;
 }
 
 /* Adjust padding and placeholder text size for better alignment */

@@ -5,14 +5,14 @@ import 'react-datepicker/dist/react-datepicker.css';
 import './Datepicker.css';
 const DatePickerInput = ({ selectedDate, onDateSelect }) => {
   return (
-    <div>
+    <div className="flexChild">
       <h2>Select a Date</h2>
       <DatePicker
         selected={selectedDate}
         onChange={date => onDateSelect(date)} // Call the handler prop to update the parent's state
         dateFormat="MMMM d, yyyy"
         // Set the default value to today's date
-        placeholderText="Select a date"
+        placeholderText="Departure Date"
         peekNextMonth
         showMonthDropdown
         showYearDropdown

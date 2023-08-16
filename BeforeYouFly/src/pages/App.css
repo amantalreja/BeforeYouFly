@@ -2,19 +2,43 @@
 
 /* Style for the body of the page */
 body {
-    font-family: 'Open Sans', sans-serif; /* Use the "Open Sans" font for the entire app */
-    background-color: #701a1a; /* Light gray background */
-    font-weight: 600;
-  }
-  
-  /* Styling for the Home component */
-  .home-container {
-    justify-content: center;
- /* Full viewport height */
-  }
-  
-  .home-title {
-    font-size: 36px;
-    margin-bottom: 20px;
-  }
-  
+  font-family: 'Open Sans', sans-serif;
+  /* Use the "Open Sans" font for the entire app */
+  background-color: #701a1a;
+  /* Light gray background */
+  font-weight: 600;
+  background: url("https://4kwallpapers.com/images/wallpapers/plane-sunset-starry-sky-illustration-red-sky-4000x2500-299.jpg") no-repeat center center fixed;
+  background-color: #f2f2f2;
+  /* Set your desired background color here */
+  background-size: cover;
+
+
+}
+
+/* Styling for the Home component */
+
+.home-title {
+  font-size: 36px;
+  margin-bottom: 20px;
+}
+
+.flexParent {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  text-align: center;
+}
+
+.flexChild {
+  margin-left: 40px !important;
+  min-width: 150px;
+}
+
+.flexChild input {
+  padding: 8px;
+  font-size: 14px;
+  background-color: #2c3e50;
+  color: #ffffff;
+  border: 1px solid #34495e;
+  border-radius: 4px;
+}
