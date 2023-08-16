@@ -19,25 +19,35 @@ const Home = () => {
   const baseUrl = "https://test.api.amadeus.com/v1/travel/predictions/flight-delay";
 
   // Parameters for the API request
-  const originLocationCode = "NCE";
-  const destinationLocationCode = "IST";
-  const departureDate = "2020-08-01";
+  var originLocationCode = "NCE";
+  var destinationLocationCode = "IST";
+  var departureDate = "2020-08-01";
   const departureTime = "18:20:00";
-  const arrivalDate = "2020-08-01";
+  var arrivalDate = "2020-08-01";
   const arrivalTime = "22:15:00";
-  const aircraftCode = "321";
-  const carrierCode = "TK";
-  const flightNumber = "1816";
-  const duration = "PT31H10M";
+  var aircraftCode = "321";
+  var carrierCode = "TK";
+  var flightNumber = "1816";
+  var duration = "PT31H10M";
   function fixVariables() {
-   // departureDate = DepartureDate;
+    departureDate = DepartureDate.toISOString().substring(0,10);
+    arrivalDate=ArrivalDate.toISOString().substring(0,10);
+    originLocationCode=DepartureAirport;
+    destinationLocationCode= ArrivalAirport;
+    aircraftCode=AircraftCode;
+    carrierCode=CarrierCode;
+    flightNumber=FlightNumber;
+
+    console.log(departureDate);
   }
   // Construct the complete URL with parameters
-  const url = `${baseUrl}?originLocationCode=${originLocationCode}&destinationLocationCode=${destinationLocationCode}&departureDate=${departureDate}&departureTime=${departureTime}&arrivalDate=${arrivalDate}&arrivalTime=${arrivalTime}&aircraftCode=${aircraftCode}&carrierCode=${carrierCode}&flightNumber=${flightNumber}&duration=${duration}`;
+ 
 
 
   // Make the API request using fetch
   const grabData = () => {
+    fixVariables();
+    const url = `${baseUrl}?originLocationCode=${originLocationCode}&destinationLocationCode=${destinationLocationCode}&departureDate=${departureDate}&departureTime=${departureTime}&arrivalDate=${arrivalDate}&arrivalTime=${arrivalTime}&aircraftCode=${aircraftCode}&carrierCode=${carrierCode}&flightNumber=${flightNumber}&duration=${duration}`;
     const urlAuth = "https://test.api.amadeus.com/v1/security/oauth2/token";
     const clientId = "XAZXfpckDVFuKZMuZFZYYY0pBVFHn7a6";
     const clientSecret = "D6EOX9SMKZ8BGi59";

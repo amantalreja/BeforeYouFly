@@ -9,7 +9,7 @@ const DatePickerInput = ({ selectedDate, onDateSelect }) => {
       <h2>Select a Date</h2>
       <DatePicker
         selected={selectedDate}
-        onChange={date => {onDateSelect(date.toISOString().substring(0,10));console.log(date.toISOString().substring(0,10))}} // Call the handler prop to update the parent's state
+        onChange={date => {onDateSelect(date);console.log(date.toISOString().substring(0,10))}} // Call the handler prop to update the parent's state
         dateFormat="MMMM d, yyyy"
         // Set the default value to today's date
         placeholderText="Departure Date"
