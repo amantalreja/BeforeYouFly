@@ -8,58 +8,89 @@ const Home = () => {
   const [ArrivalDate, setArrivalDate] = useState(null);
   const [DepartureAirport, setDepartureAirport] = useState('');
   const [ArrivalAirport, setArrivalAirport] = useState('');
-  const [DepartureTime, setdepartureTime] = useState('');
+  const [DepartureTime, setDepartureTime] = useState('');
   const [ArrivalTime, setArrivalTime] = useState('');
+  const [AircraftCode, setAircraftCode] = useState('');
+  const [CarrierCode, setCarrierCode] = useState('');
+  const [FlightNumber, setFlightNumber] = useState('');
+  const [Duration, setDuration] = useState('');
 
   // Base URL for the API
-const baseUrl = "https://test.api.amadeus.com/v1/travel/predictions/flight-delay";
+  const baseUrl = "https://test.api.amadeus.com/v1/travel/predictions/flight-delay";
 
-// Parameters for the API request
-const originLocationCode = "NCE";
-const destinationLocationCode = "IST";
-const departureDate = "2020-08-01";
-const departureTime = "18:20:00";
-const arrivalDate = "2020-08-01";
-const arrivalTime = "22:15:00";
-const aircraftCode = "321";
-const carrierCode = "TK";
-const flightNumber = "1816";
-const duration = "PT31H10M";
+  // Parameters for the API request
+  const originLocationCode = "NCE";
+  const destinationLocationCode = "IST";
+  const departureDate = "2020-08-01";
+  const departureTime = "18:20:00";
+  const arrivalDate = "2020-08-01";
+  const arrivalTime = "22:15:00";
+  const aircraftCode = "321";
+  const carrierCode = "TK";
+  const flightNumber = "1816";
+  const duration = "PT31H10M";
+  function fixVariables() {
+   // departureDate = DepartureDate;
+  }
+  // Construct the complete URL with parameters
+  const url = `${baseUrl}?originLocationCode=${originLocationCode}&destinationLocationCode=${destinationLocationCode}&departureDate=${departureDate}&departureTime=${departureTime}&arrivalDate=${arrivalDate}&arrivalTime=${arrivalTime}&aircraftCode=${aircraftCode}&carrierCode=${carrierCode}&flightNumber=${flightNumber}&duration=${duration}`;
 
-// Construct the complete URL with parameters
-const url = `${baseUrl}?originLocationCode=${originLocationCode}&destinationLocationCode=${destinationLocationCode}&departureDate=${departureDate}&departureTime=${departureTime}&arrivalDate=${arrivalDate}&arrivalTime=${arrivalTime}&aircraftCode=${aircraftCode}&carrierCode=${carrierCode}&flightNumber=${flightNumber}&duration=${duration}`;
 
-// Headers for the API request
-const headers = {
-  "Authorization": "Bearer X7XKxPAXcJwiLPWlERrwy3xeG5kV"
-};
+  // Make the API request using fetch
+  const grabData = () => {
+    const urlAuth = "https://test.api.amadeus.com/v1/security/oauth2/token";
+    const clientId = "XAZXfpckDVFuKZMuZFZYYY0pBVFHn7a6";
+    const clientSecret = "D6EOX9SMKZ8BGi59";
 
-// Make the API request using fetch
-const grabData=()=>{
-  fetch(url, {
-    method: "GET",
-    headers: headers
-  })
-    .then(response => response.json())
-    .then(data => {
-      console.log(data);
+    const data = new URLSearchParams();
+    data.append("grant_type", "client_credentials");
+    data.append("client_id", clientId);
+    data.append("client_secret", clientSecret);
+    //Fetches the token
+    fetch(urlAuth, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      body: data
     })
-    .catch(error => {
-      console.error("Error:", error);
-    });
-}
+      .then(response => response.json())
+      .then(data => {
+        //logs the token
+        console.log(data.access_token);
+        const headers = {
+          "Authorization": "Bearer "+data.access_token
+        };
+        //fetches the flight data
+        fetch(url, {
+          method: "GET",
+          headers: headers
+        })
+          .then(response => response.json())
+          .then(data => {
+
+            console.log(data);
+          })
+          .catch(error => {
+            console.error("Error:", error);
+          });
+      })
+      .catch(error => {
+        console.error("Error:", error);
+      });
+
+  }
 
   return (
     <div className="home-container">
       <h1 className="home-title">Flight Delay Predictor</h1>
       <div>
-        <h1>React Date Picker Example</h1>
         <div class="flexParent">
           <DatePickerInput className="flexChild" selectedDate={DepartureDate} onDateSelect={date => setDepartureDate(date)} />
           <DatePickerInput className="flexChild" selectedDate={ArrivalDate} onDateSelect={date => setArrivalDate(date)} />
           <div className="flexChild" >
             <h2>Departure Airport Code</h2>
-            <input 
+            <input
               type="text"
               placeholder="Departure airport code"
               value={DepartureAirport}
@@ -69,7 +100,7 @@ const grabData=()=>{
           </div>
           <div className="flexChild">
             <h2>Arrival Airport Code</h2>
-            <input 
+            <input
               type="text"
               placeholder="Arrival airport code"
               value={ArrivalAirport}
@@ -78,28 +109,70 @@ const grabData=()=>{
             <h5>Ex: For Istanbul its IST</h5>
           </div>
           <div className="flexChild">
-            <h2>departureTime</h2>
-            <input 
+            <h2>DepartureTime</h2>
+            <input
               type="text"
-              placeholder="departureTime"
-              value={departureTime}
-              onChange={(e) => { setdepartureTime(e.target.value); console.log(departureTime) }}
+              placeholder="DepartureTime"
+              value={DepartureTime}
+              onChange={(e) => { setDepartureTime(e.target.value); console.log(DepartureTime) }}
             />
             <h5>Ex: For Istanbul its IST</h5>
           </div>
           <div className="flexChild">
-            <h2>departureTime</h2>
-            <input 
+            <h2>ArrivalTime</h2>
+            <input
               type="text"
-              placeholder="departureTime"
-              value={departureTime}
-              onChange={(e) => { setdepartureTime(e.target.value); console.log(departureTime) }}
+              placeholder="ArrivalTime"
+              value={ArrivalTime}
+              onChange={(e) => { setArrivalTime(e.target.value); console.log(ArrivalTime) }}
             />
             <h5>Ex: For Istanbul its IST</h5>
           </div>
-          
+          <div className="flexChild">
+            <h2>AircraftCode</h2>
+            <input
+              type="text"
+              placeholder="AircraftCode"
+              value={AircraftCode}
+              onChange={(e) => { setAircraftCode(e.target.value); console.log(AircraftCode) }}
+            />
+            <h5>Ex: For Istanbul its IST</h5>
+          </div>
+          <div className="flexChild">
+            <h2>CarrierCode</h2>
+            <input
+              type="text"
+              placeholder="CarrierCode"
+              value={CarrierCode}
+              onChange={(e) => { setCarrierCode(e.target.value); console.log(CarrierCode) }}
+            />
+            <h5>Ex: For Istanbul its IST</h5>
+          </div>
+
+          <div className="flexChild">
+            <h2>FlightNumber</h2>
+            <input
+              type="text"
+              placeholder="FlightNumber"
+              value={FlightNumber}
+              onChange={(e) => { setFlightNumber(e.target.value); console.log(FlightNumber) }}
+            />
+            <h5>Ex: For Istanbul its IST</h5>
+          </div>
+          <div className="flexChild">
+            <h2>Duration</h2>
+            <input
+              type="text"
+              placeholder="Duration"
+              value={Duration}
+              onChange={(e) => { setFlightNumber(e.target.value); console.log(Duration) }}
+            />
+            <h5>Ex: For Istanbul its IST</h5>
+          </div>
+
         </div>
-        {DepartureDate && <h1>Selected Date: {DepartureDate.toDateString()}</h1>}
+       
+        <button onClick={() => { grabData(); }}>Submit</button>
       </div>
     </div>
 
