@@ -22,9 +22,9 @@ const Home = () => {
   var originLocationCode = "NCE";
   var destinationLocationCode = "IST";
   var departureDate = "2020-08-01";
-  const departureTime = "18:20:00";
+  var departureTime = "18:20:00";
   var arrivalDate = "2020-08-01";
-  const arrivalTime = "22:15:00";
+  var arrivalTime = "22:15:00";
   var aircraftCode = "321";
   var carrierCode = "TK";
   var flightNumber = "1816";
@@ -37,8 +37,9 @@ const Home = () => {
     aircraftCode=AircraftCode;
     carrierCode=CarrierCode;
     flightNumber=FlightNumber;
-
-    console.log(departureDate);
+    duration="PT"+Duration;
+    departureTime= DepartureTime+":00";
+    arrivalTime=ArrivalTime+":00";
   }
   // Construct the complete URL with parameters
  
@@ -96,8 +97,8 @@ const Home = () => {
       <h1 className="home-title">Flight Delay Predictor</h1>
       <div>
         <div class="flexParent">
-          <DatePickerInput className="flexChild" selectedDate={DepartureDate} onDateSelect={date => setDepartureDate(date)} />
-          <DatePickerInput className="flexChild" selectedDate={ArrivalDate} onDateSelect={date => setArrivalDate(date)} />
+          <DatePickerInput className="flexChild" selectedDate={DepartureDate} typeOfDate={"DepartureDate"} onDateSelect={date => setDepartureDate(date)} />
+          <DatePickerInput className="flexChild" selectedDate={ArrivalDate} typeOfDate={"ArrivalDate"} onDateSelect={date => setArrivalDate(date)} />
           <div className="flexChild" >
             <h2>Departure Airport Code</h2>
             <input
@@ -179,13 +180,10 @@ const Home = () => {
             />
             <h5>Ex: For Istanbul its IST</h5>
           </div>
-
         </div>
-       
         <button onClick={() => { grabData(); }}>Submit</button>
       </div>
     </div>
-
   );
 };
 
