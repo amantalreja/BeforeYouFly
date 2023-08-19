@@ -49,6 +49,7 @@ const Home = () => {
   const grabData = () => {
     fixVariables();
     const url = `${baseUrl}?originLocationCode=${originLocationCode}&destinationLocationCode=${destinationLocationCode}&departureDate=${departureDate}&departureTime=${departureTime}&arrivalDate=${arrivalDate}&arrivalTime=${arrivalTime}&aircraftCode=${aircraftCode}&carrierCode=${carrierCode}&flightNumber=${flightNumber}&duration=${duration}`;
+    console.log(url);
     const urlAuth = "https://test.api.amadeus.com/v1/security/oauth2/token";
     const clientId = "XAZXfpckDVFuKZMuZFZYYY0pBVFHn7a6";
     const clientSecret = "D6EOX9SMKZ8BGi59";
@@ -176,7 +177,7 @@ const Home = () => {
               type="text"
               placeholder="Duration"
               value={Duration}
-              onChange={(e) => { setFlightNumber(e.target.value); console.log(Duration) }}
+              onChange={(e) => { setDuration(e.target.value); console.log(Duration) }}
             />
             <h5>Ex: For Istanbul its IST</h5>
           </div>
