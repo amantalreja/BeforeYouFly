@@ -1,6 +1,6 @@
 // Home.js
 
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import "./App.css"; // Import the custom CSS
 import DatePickerInput from './Components/Datepicker';
 import MyPieChart from './Components/MyPieChart';
@@ -15,7 +15,8 @@ const Home = () => {
   const [CarrierCode, setCarrierCode] = useState('');
   const [FlightNumber, setFlightNumber] = useState('');
   const [Duration, setDuration] = useState('');
-
+  const [pieChart,setPieChart]=useState('');
+  const [fixedJson,setfixedJson]=useState('');
   // Base URL for the API
   const baseUrl = "https://test.api.amadeus.com/v1/travel/predictions/flight-delay";
 
@@ -29,45 +30,7 @@ const Home = () => {
   var aircraftCode = "321";
   var carrierCode = "TK";
   var flightNumber = "1816";
-  var duration = "PT31H10M";
-  const dataTemp={
-    "data": [
-      {
-        "id": "FLIGHT_1",
-        "probability": "0.35",
-        "result": "LESS_THAN_30_MINUTES",
-        "subType": "flight-delay",
-        "type": "prediction"
-      },
-      {
-        "id": "FLIGHT_2",
-        "probability": "0.15",
-        "result": "BETWEEN_30_AND_60_MINUTES",
-        "subType": "flight-delay",
-        "type": "prediction"
-      },
-      {
-        "id": "FLIGHT_3",
-        "probability": "0.25",
-        "result": "BETWEEN_60_AND_120_MINUTES",
-        "subType": "flight-delay",
-        "type": "prediction"
-      },
-      {
-        "id": "FLIGHT_4",
-        "probability": "0.15",
-        "result": "OVER_120_MINUTES_OR_CANCELLED",
-        "subType": "flight-delay",
-        "type": "prediction"
-      }
-    ],
-    "meta": {
-      "count": 4,
-      "links": {
-        "self": "https://example.com/api/flight-delay-predictions"
-      }
-    }
-  }   
+  var duration = "PT31H10M";  
   function fixVariables() {
     departureDate = DepartureDate.toISOString().substring(0,10);
     arrivalDate=ArrivalDate.toISOString().substring(0,10);
@@ -120,6 +83,7 @@ const Home = () => {
           .then(response => response.json())
           .then(data => {
             console.log(JSON.stringify(data));
+            setPieChart(<MyPieChart flightDelayData={data} />);
           })
           .catch(error => {
             console.error("Error:", error);
@@ -221,6 +185,7 @@ const Home = () => {
           </div>
         </div>
         <button onClick={() => { grabData(); }}>Submit</button>
+        {pieChart}
       </div>
     </div>
   );
