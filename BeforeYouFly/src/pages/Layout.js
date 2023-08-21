@@ -4,9 +4,9 @@ const Layout = () => {
   return (
     <>
       <nav>
-        <div> <Link to="/"  style={{textDecoration:'none'}} className="red">Home</Link></div>
-        <div> <Link to="/blogs" style={{textDecoration:'none'}}  className="red">Blogs</Link></div>
-        <div> <Link to="/contact" style={{textDecoration:'none'}} className="red" >Contact</Link></div>
+        <div> <Link to="/"  style={{textDecoration:'none'}} className="navItem">Home</Link></div>
+        <div> <Link to="/blogs" style={{textDecoration:'none'}}  className="navItem">Blogs</Link></div>
+        <div> <Link to="/contact" style={{textDecoration:'none'}} className="navItem" >Contact</Link></div>
       </nav>
       <Outlet />
     </>

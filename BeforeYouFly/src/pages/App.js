@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import "./App.css"; // Import the custom CSS
 import DatePickerInput from './Components/Datepicker';
+import MyPieChart from './Components/MyPieChart';
 const Home = () => {
   const [DepartureDate, setDepartureDate] = useState(null);
   const [ArrivalDate, setArrivalDate] = useState(null);
@@ -29,6 +30,44 @@ const Home = () => {
   var carrierCode = "TK";
   var flightNumber = "1816";
   var duration = "PT31H10M";
+  const dataTemp={
+    "data": [
+      {
+        "id": "FLIGHT_1",
+        "probability": "0.35",
+        "result": "LESS_THAN_30_MINUTES",
+        "subType": "flight-delay",
+        "type": "prediction"
+      },
+      {
+        "id": "FLIGHT_2",
+        "probability": "0.15",
+        "result": "BETWEEN_30_AND_60_MINUTES",
+        "subType": "flight-delay",
+        "type": "prediction"
+      },
+      {
+        "id": "FLIGHT_3",
+        "probability": "0.25",
+        "result": "BETWEEN_60_AND_120_MINUTES",
+        "subType": "flight-delay",
+        "type": "prediction"
+      },
+      {
+        "id": "FLIGHT_4",
+        "probability": "0.15",
+        "result": "OVER_120_MINUTES_OR_CANCELLED",
+        "subType": "flight-delay",
+        "type": "prediction"
+      }
+    ],
+    "meta": {
+      "count": 4,
+      "links": {
+        "self": "https://example.com/api/flight-delay-predictions"
+      }
+    }
+  }   
   function fixVariables() {
     departureDate = DepartureDate.toISOString().substring(0,10);
     arrivalDate=ArrivalDate.toISOString().substring(0,10);
@@ -47,13 +86,13 @@ const Home = () => {
 
   // Make the API request using fetch
   const grabData = () => {
-    fixVariables();
+ //   fixVariables();
     const url = `${baseUrl}?originLocationCode=${originLocationCode}&destinationLocationCode=${destinationLocationCode}&departureDate=${departureDate}&departureTime=${departureTime}&arrivalDate=${arrivalDate}&arrivalTime=${arrivalTime}&aircraftCode=${aircraftCode}&carrierCode=${carrierCode}&flightNumber=${flightNumber}&duration=${duration}`;
     console.log(url);
     const urlAuth = "https://test.api.amadeus.com/v1/security/oauth2/token";
     const clientId = "XAZXfpckDVFuKZMuZFZYYY0pBVFHn7a6";
     const clientSecret = "D6EOX9SMKZ8BGi59";
-
+    
     const data = new URLSearchParams();
     data.append("grant_type", "client_credentials");
     data.append("client_id", clientId);
@@ -80,8 +119,7 @@ const Home = () => {
         })
           .then(response => response.json())
           .then(data => {
-
-            console.log(data);
+            console.log(JSON.stringify(data));
           })
           .catch(error => {
             console.error("Error:", error);
@@ -98,13 +136,13 @@ const Home = () => {
       <h1 className="home-title">Flight Delay Predictor</h1>
       <div>
         <div class="flexParent">
-          <DatePickerInput className="flexChild" selectedDate={DepartureDate} typeOfDate={"DepartureDate"} onDateSelect={date => setDepartureDate(date)} />
-          <DatePickerInput className="flexChild" selectedDate={ArrivalDate} typeOfDate={"ArrivalDate"} onDateSelect={date => setArrivalDate(date)} />
+          <DatePickerInput className="flexChild" selectedDate={DepartureDate} typeOfDate={"Departure Date"} onDateSelect={date => setDepartureDate(date)} />
+          <DatePickerInput className="flexChild" selectedDate={ArrivalDate} typeOfDate={"Arrival Date"} onDateSelect={date => setArrivalDate(date)} />
           <div className="flexChild" >
             <h2>Departure Airport Code</h2>
             <input
               type="text"
-              placeholder="Departure airport code"
+              placeholder="Departure Airport code"
               value={DepartureAirport}
               onChange={(e) => { setDepartureAirport(e.target.value); console.log(DepartureAirport) }}
             />
@@ -114,47 +152,47 @@ const Home = () => {
             <h2>Arrival Airport Code</h2>
             <input
               type="text"
-              placeholder="Arrival airport code"
+              placeholder="Arrival Airport code"
               value={ArrivalAirport}
               onChange={(e) => { setArrivalAirport(e.target.value); console.log(ArrivalAirport) }}
             />
             <h5>Ex: For Istanbul its IST</h5>
           </div>
           <div className="flexChild">
-            <h2>DepartureTime</h2>
+            <h2>Departure Time</h2>
             <input
               type="text"
-              placeholder="DepartureTime"
+              placeholder="Departure Time"
               value={DepartureTime}
               onChange={(e) => { setDepartureTime(e.target.value); console.log(DepartureTime) }}
             />
             <h5>Ex: For Istanbul its IST</h5>
           </div>
           <div className="flexChild">
-            <h2>ArrivalTime</h2>
+            <h2>Arrival Time</h2>
             <input
               type="text"
-              placeholder="ArrivalTime"
+              placeholder="Arrival Time"
               value={ArrivalTime}
               onChange={(e) => { setArrivalTime(e.target.value); console.log(ArrivalTime) }}
             />
             <h5>Ex: For Istanbul its IST</h5>
           </div>
           <div className="flexChild">
-            <h2>AircraftCode</h2>
+            <h2>Aircraft Code</h2>
             <input
               type="text"
-              placeholder="AircraftCode"
+              placeholder="Aircraft Code"
               value={AircraftCode}
               onChange={(e) => { setAircraftCode(e.target.value); console.log(AircraftCode) }}
             />
             <h5>Ex: For Istanbul its IST</h5>
           </div>
           <div className="flexChild">
-            <h2>CarrierCode</h2>
+            <h2>Carrier Code</h2>
             <input
               type="text"
-              placeholder="CarrierCode"
+              placeholder="Carrier Code"
               value={CarrierCode}
               onChange={(e) => { setCarrierCode(e.target.value); console.log(CarrierCode) }}
             />
@@ -162,10 +200,10 @@ const Home = () => {
           </div>
 
           <div className="flexChild">
-            <h2>FlightNumber</h2>
+            <h2>Flight Number</h2>
             <input
               type="text"
-              placeholder="FlightNumber"
+              placeholder="Flight Number"
               value={FlightNumber}
               onChange={(e) => { setFlightNumber(e.target.value); console.log(FlightNumber) }}
             />

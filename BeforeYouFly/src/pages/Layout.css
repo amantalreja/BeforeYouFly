@@ -14,14 +14,14 @@ nav div{
     font-size:20px;
     text-align:center;
     margin:0px;
-    
 }
-.red{
-    color:grey;
+.navItem{
+    color:rgb(146, 144, 144);
+    font-weight: 800;
 }
 nav div :hover{
-    color:red;
-    background-color: blue;
+    color:rgb(41, 41, 41);
+    background-color: rgb(170, 170, 172);
     padding:15px;
     padding-left:10px;
     padding-right:10px;
