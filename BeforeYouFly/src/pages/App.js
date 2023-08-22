@@ -5,6 +5,14 @@ import "./App.css"; // Import the custom CSS
 import DatePickerInput from './Components/Datepicker';
 import MyPieChart from './Components/MyPieChart';
 const Home = () => {
+  const scrollToBottom = () => {
+    setTimeout(() => {
+      window.scrollTo({
+        top: document.body.scrollHeight,
+        behavior: 'smooth',
+      });
+    }, 1000); // Delay of 1000ms (1 second)
+  };
   const [DepartureDate, setDepartureDate] = useState(null);
   const [ArrivalDate, setArrivalDate] = useState(null);
   const [DepartureAirport, setDepartureAirport] = useState('');
@@ -83,16 +91,18 @@ const Home = () => {
           .then(response => response.json())
           .then(data => {
             console.log(JSON.stringify(data));
+            window.scrollBy(0, 500);
             setPieChart(<MyPieChart flightDelayData={data} />);
+            scrollToBottom();
           })
           .catch(error => {
             console.error("Error:", error);
+            setPieChart(<h1> Unable to Load Data, check your input</h1>);
           });
       })
       .catch(error => {
         console.error("Error:", error);
       });
-
   }
 
   return (

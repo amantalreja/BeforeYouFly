@@ -1,0 +1,27 @@
+/* MissionStatement.css */
+.mission-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 30px;
+  text-align: center;
+  background-color: #333; /* Dark gray background color */
+  border-radius: 10px; /* Rounded corners */
+  color: rgb(177, 177, 177); /* Text color */
+  padding-left:7%;
+  padding-right:7%;
+}
+
+.mission-title {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+}
+
+.mission-paragraph {
+  font-size: 1.1rem;
+  margin-bottom: 15px;
+  line-height: 1.6;
+}
+
+.mission-paragraph:last-child {
+  margin-bottom: 0;
+}
